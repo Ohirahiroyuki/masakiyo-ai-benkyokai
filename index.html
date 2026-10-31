@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>勉強会 貼り付け資料</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=BIZ+UDPGothic:wght@400;700&display=swap">
+<style>
+/* Layout: 現場で片手操作する1カラム。ワークごとに「貼り付け文→質問」の2手順を縦に並べる。 */
+:root {
+  --bg: #F4F6F2;
+  --surface: #FFFFFF;
+  --fg: #1C2920;
+  --muted: #56665B;
+  --line: #D5DDD4;
+  --brand: #2F4A2F;
+  --brand-fg: #FFFFFF;
+  --accent: #A8670F;
+  --accent-soft: #F6E9D2;
+  --ok: #1F7A45;
+  --focus: #1D5FD1;
+  --font-body: "BIZ UDPGothic", "Hiragino Sans", "Yu Gothic UI", "Meiryo", sans-serif;
+  --font-num: "BIZ UDPGothic", "Hiragino Sans", "Yu Gothic UI", sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #111A14; --surface: #19251D; --fg: #E7EEE8; --muted: #9DB0A2; --line: #2B3A2F;
+    --brand: #86C791; --brand-fg: #0E1A11; --accent: #E3AE55; --accent-soft: #33291A;
+    --ok: #6FD08F; --focus: #7AA7FF; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #111A14; --surface: #19251D; --fg: #E7EEE8; --muted: #9DB0A2; --line: #2B3A2F;
+  --brand: #86C791; --brand-fg: #0E1A11; --accent: #E3AE55; --accent-soft: #33291A;
+  --ok: #6FD08F; --focus: #7AA7FF; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  background: var(--bg); color: var(--fg);
+  font-family: var(--font-body); font-size: 16px; line-height: 1.7;
+  padding-block: 20px 56px;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+.wrap { max-width: 40rem; margin-inline: auto; display: flex; flex-direction: column; gap: 28px; min-width: 0; }
+h1, h2, h3 { text-wrap: balance; line-height: 1.35; margin: 0; }
+p { margin: 0; }
+.eyebrow { font-size: 13px; letter-spacing: .06em; color: var(--muted); }
+h1 { font-size: 26px; font-weight: 700; margin-top: 4px; }
+.lead { color: var(--muted); margin-top: 8px; }
+
+.howto { display: grid; gap: 10px; counter-reset: s; padding: 0; margin: 0; list-style: none; }
+.howto li { display: grid; grid-template-columns: 32px 1fr; gap: 12px; align-items: start; counter-increment: s; }
+.howto li::before {
+  content: counter(s); width: 32px; height: 32px; border-radius: 50%;
+  background: var(--brand); color: var(--brand-fg); font-weight: 700;
+  display: grid; place-items: center; font-variant-numeric: tabular-nums;
+}
+.howto strong { font-weight: 700; }
+
+.work { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 16px 16px; display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.work-head { display: grid; gap: 4px; }
+.work-tag { font-size: 13px; color: var(--accent); font-weight: 700; letter-spacing: .04em; }
+.work h2 { font-size: 20px; }
+.case { color: var(--muted); font-size: 15px; }
+
+.step { display: grid; gap: 8px; }
+.step-label { font-size: 13px; color: var(--muted); font-weight: 700; letter-spacing: .04em; }
+.qtext { font-size: 18px; font-weight: 700; padding: 10px 12px; background: var(--accent-soft); border-radius: 8px; }
+
+button, summary { font: inherit; }
+.btn {
+  display: flex; align-items: center; justify-content: center; gap: 10px;
+  width: 100%; min-height: 56px; padding: 12px 16px; border-radius: 10px;
+  border: 2px solid var(--brand); background: var(--brand); color: var(--brand-fg);
+  font-weight: 700; font-size: 17px; cursor: pointer; text-align: center;
+}
+.btn.alt { background: transparent; color: var(--brand); }
+.btn.small { min-height: 48px; font-size: 15px; font-weight: 400; border-width: 1px; }
+.btn:active { transform: translateY(1px); }
+.btn[data-done="1"] { background: var(--ok); border-color: var(--ok); color: #fff; }
+.btn svg { flex: none; width: 22px; height: 22px; }
+:focus-visible { outline: 3px solid var(--focus); outline-offset: 2px; }
+
+details { border-top: 1px solid var(--line); padding-top: 10px; }
+summary { cursor: pointer; color: var(--muted); font-size: 15px; padding: 6px 0; }
+textarea {
+  width: 100%; min-height: 12rem; margin-top: 8px; padding: 10px 12px; border-radius: 8px;
+  border: 1px solid var(--line); background: var(--bg); color: var(--fg);
+  font: 14px/1.7 var(--font-body); resize: vertical;
+}
+.msg { min-height: 1.6em; font-size: 15px; color: var(--ok); font-weight: 700; }
+.msg.warn { color: var(--accent); }
+
+.notes { display: grid; gap: 8px; padding: 14px 16px; border: 1px dashed var(--line); border-radius: 12px; color: var(--muted); font-size: 15px; }
+.notes strong { color: var(--fg); }
+.notes ul { margin: 0; padding-left: 1.2em; display: grid; gap: 4px; }
+.org { font-size: 13px; color: var(--muted); text-align: center; }
+@media (prefers-reduced-motion: reduce) { .btn:active { transform: none; } }
+</style>
+
+<main class="wrap">
+  <header>
+    <p class="eyebrow">2026年11月2日（月）13:30〜 正木屋材木店 MUKUROOM</p>
+    <h1>AI活用勉強会 貼り付け資料</h1>
+    <p class="lead">このページ1枚で、判断シート・回答ルール・事例をまとめてAIに貼れます。ボタンを押すだけです。</p>
+  </header>
+
+  <section aria-labelledby="howto-h">
+    <h2 id="howto-h" style="font-size:18px;margin-bottom:12px">貼り方（ワークごとに同じです）</h2>
+    <ol class="howto">
+      <li><div><strong>「貼り付け文をコピー」</strong>を押す。</div></li>
+      <li><div>AIアプリを開き、<strong>新しい会話</strong>を始める。</div></li>
+      <li><div>文字入力欄に貼り付けて送信。AIが<strong>「受領しました」</strong>と返したら準備完了。</div></li>
+      <li><div>質問を送る。自分で打っても、<strong>「質問をコピー」</strong>で貼ってもOK。</div></li>
+    </ol>
+  </section>
+
+  <div id="works" style="display:flex;flex-direction:column;gap:20px"></div>
+
+  <aside class="notes" aria-label="注意">
+    <strong>使う前に</strong>
+    <ul>
+      <li>施主の氏名・住所・図面、協力業者の個別単価、契約書・与信情報は入れません。自社の数字は概数か比率で。</li>
+      <li>講師の結論は、会場のスクリーンでお見せします。このページには載せていません。</li>
+      <li>AIの回答の数字は、自分で確かめてください。最終判断は社長が行います。</li>
+    </ul>
+  </aside>
+  <p class="org">株式会社 正木屋材木店</p>
+</main>
+
+<script>
+const DATA = {"rules": "【回答のルール】※判断シート・事例と一緒に、相談の最初に貼ってください。\n\n【回答の形式】\n・【結論】【懸念】【根拠】【行動】【要確認】の順に、各項目2〜3行で短く答えてください。\n・【結論】は最初の1〜2行、【懸念】は1〜3点、【行動】は「誰が・いつ・何を」で示してください。\n・与えた前提で判断できる場合は、対応方針まで示してください。材料が足りない場合は、【結論】を「現時点では判断保留」とし、不足情報と次の確認を【要確認】に示してください。\n\n【判断のルール】\n・安全と法令は必ず守る前提です。「①大切にすること」「②利益の基準」「③やらない仕事」「④最終判断する人」「⑤まだ分からないこと」に照らし、どの項目を根拠にしたか示してください。\n・営業利益と手元資金への影響を確認し、実績の数字と承認に使う基準を区別してください。全社の利益と工事別の粗利を混同しないでください。\n・数値は単位・対象範囲・期間・計算式を示してください。未確認の数字、担当者、期限、契約条件を作らず、「要確認」としてください。\n・契約・法令の論点は整理にとどめ、弁護士など専門家が最終確認する旨を添えてください。\n\n【事実と設定の扱い】\n・確認済みの事実、架空の設定、仮説、未確認事項を分けてください。架空の設定は、その事例の検討にだけ使ってください。\n・確認済みの事項を理由なく未確認へ戻さず、矛盾がある場合は具体的に指摘してください。前提が変われば結論も見直してください。\n・私の希望に合わせず、矛盾や弱点とその根拠を示してください。\n\n【対応方針と最終判断】\n・施主対応では、記録・実際の施工・説明・契約面を確認してください。確認前に無償対応や責任を約束せず、確認後は根拠に沿った対応方針を示してください。法的責任がないとは断定しないでください。\n・AIは結論を保証しません。最終判断は人が行います。講師の結論は、示した架空設定に基づく判断例です。\n・個人情報や機密情報が含まれていたら、伏せて入力し直すよう伝えてください。\n", "sheet": "【判断シート（架空の工務店）】\n①大切にすること：施主・協力業者からの信用、継続的な利益、品質。\n②利益の基準：承認に使う粗利率・手元資金の基準値は未設定。事例の実績と区別する。実績の数字を、そのまま承認基準にしない。\n③やらない仕事：口約束だけの追加工事、承認なしの赤字工事。\n④最終判断する人：社長。金額別の承認範囲は未確認。\n⑤まだ分からないこと：事例で示していない条件は要確認。\n", "tail": "【お願い】\n質問は次のメッセージで送ります。今は「受領しました」とだけ返してください。\n", "works": [{"n": 1, "name": "手間賃", "bundle": "【回答のルール】※判断シート・事例と一緒に、相談の最初に貼ってください。\n\n【回答の形式】\n・【結論】【懸念】【根拠】【行動】【要確認】の順に、各項目2〜3行で短く答えてください。\n・【結論】は最初の1〜2行、【懸念】は1〜3点、【行動】は「誰が・いつ・何を」で示してください。\n・与えた前提で判断できる場合は、対応方針まで示してください。材料が足りない場合は、【結論】を「現時点では判断保留」とし、不足情報と次の確認を【要確認】に示してください。\n\n【判断のルール】\n・安全と法令は必ず守る前提です。「①大切にすること」「②利益の基準」「③やらない仕事」「④最終判断する人」「⑤まだ分からないこと」に照らし、どの項目を根拠にしたか示してください。\n・営業利益と手元資金への影響を確認し、実績の数字と承認に使う基準を区別してください。全社の利益と工事別の粗利を混同しないでください。\n・数値は単位・対象範囲・期間・計算式を示してください。未確認の数字、担当者、期限、契約条件を作らず、「要確認」としてください。\n・契約・法令の論点は整理にとどめ、弁護士など専門家が最終確認する旨を添えてください。\n\n【事実と設定の扱い】\n・確認済みの事実、架空の設定、仮説、未確認事項を分けてください。架空の設定は、その事例の検討にだけ使ってください。\n・確認済みの事項を理由なく未確認へ戻さず、矛盾がある場合は具体的に指摘してください。前提が変われば結論も見直してください。\n・私の希望に合わせず、矛盾や弱点とその根拠を示してください。\n\n【対応方針と最終判断】\n・施主対応では、記録・実際の施工・説明・契約面を確認してください。確認前に無償対応や責任を約束せず、確認後は根拠に沿った対応方針を示してください。法的責任がないとは断定しないでください。\n・AIは結論を保証しません。最終判断は人が行います。講師の結論は、示した架空設定に基づく判断例です。\n・個人情報や機密情報が含まれていたら、伏せて入力し直すよう伝えてください。\n\n【判断シート（架空の工務店）】\n①大切にすること：施主・協力業者からの信用、継続的な利益、品質。\n②利益の基準：承認に使う粗利率・手元資金の基準値は未設定。事例の実績と区別する。実績の数字を、そのまま承認基準にしない。\n③やらない仕事：口約束だけの追加工事、承認なしの赤字工事。\n④最終判断する人：社長。金額別の承認範囲は未確認。\n⑤まだ分からないこと：事例で示していない条件は要確認。\n\n【事例（架空）：ワーク① 大工手間賃の20%値上げ】\nこれは勉強会の架空設定です。年間の大工手間賃3,000万円、現在の営業利益500万円。年間手間賃の全額が1年間20%値上げになる要求です。売上とその他の費用は変わりません。\n\n【お願い】\n質問は次のメッセージで送ります。今は「受領しました」とだけ返してください。\n", "question": "この値上げを受けるべきですか？", "caseOnly": "【事例（架空）：ワーク① 大工手間賃の20%値上げ】\nこれは勉強会の架空設定です。年間の大工手間賃3,000万円、現在の営業利益500万円。年間手間賃の全額が1年間20%値上げになる要求です。売上とその他の費用は変わりません。\n\n【お願い】\n質問は次のメッセージで送ります。今は「受領しました」とだけ返してください。\n"}, {"n": 2, "name": "クレーム", "bundle": "【回答のルール】※判断シート・事例と一緒に、相談の最初に貼ってください。\n\n【回答の形式】\n・【結論】【懸念】【根拠】【行動】【要確認】の順に、各項目2〜3行で短く答えてください。\n・【結論】は最初の1〜2行、【懸念】は1〜3点、【行動】は「誰が・いつ・何を」で示してください。\n・与えた前提で判断できる場合は、対応方針まで示してください。材料が足りない場合は、【結論】を「現時点では判断保留」とし、不足情報と次の確認を【要確認】に示してください。\n\n【判断のルール】\n・安全と法令は必ず守る前提です。「①大切にすること」「②利益の基準」「③やらない仕事」「④最終判断する人」「⑤まだ分からないこと」に照らし、どの項目を根拠にしたか示してください。\n・営業利益と手元資金への影響を確認し、実績の数字と承認に使う基準を区別してください。全社の利益と工事別の粗利を混同しないでください。\n・数値は単位・対象範囲・期間・計算式を示してください。未確認の数字、担当者、期限、契約条件を作らず、「要確認」としてください。\n・契約・法令の論点は整理にとどめ、弁護士など専門家が最終確認する旨を添えてください。\n\n【事実と設定の扱い】\n・確認済みの事実、架空の設定、仮説、未確認事項を分けてください。架空の設定は、その事例の検討にだけ使ってください。\n・確認済みの事項を理由なく未確認へ戻さず、矛盾がある場合は具体的に指摘してください。前提が変われば結論も見直してください。\n・私の希望に合わせず、矛盾や弱点とその根拠を示してください。\n\n【対応方針と最終判断】\n・施主対応では、記録・実際の施工・説明・契約面を確認してください。確認前に無償対応や責任を約束せず、確認後は根拠に沿った対応方針を示してください。法的責任がないとは断定しないでください。\n・AIは結論を保証しません。最終判断は人が行います。講師の結論は、示した架空設定に基づく判断例です。\n・個人情報や機密情報が含まれていたら、伏せて入力し直すよう伝えてください。\n\n【判断シート（架空の工務店）】\n①大切にすること：施主・協力業者からの信用、継続的な利益、品質。\n②利益の基準：承認に使う粗利率・手元資金の基準値は未設定。事例の実績と区別する。実績の数字を、そのまま承認基準にしない。\n③やらない仕事：口約束だけの追加工事、承認なしの赤字工事。\n④最終判断する人：社長。金額別の承認範囲は未確認。\n⑤まだ分からないこと：事例で示していない条件は要確認。\n\n【事例（架空）：ワーク② 外壁の色のクレーム】\nこれは勉強会の架空事例です。新築引渡し2週間後、施主から「外壁の色が見本と違う。塗り直してほしい」と連絡がありました。色は小さな見本で選びました。色番号の施主確認記録と実際の施工が一致し、施工不良もなく、事前説明・契約面も適切だったと確認済み、という条件を追加の架空設定とします。\n\n【お願い】\n質問は次のメッセージで送ります。今は「受領しました」とだけ返してください。\n", "question": "無料で塗り直すべきですか？", "caseOnly": null}, {"n": 3, "name": "見積原価", "bundle": "【回答のルール】※判断シート・事例と一緒に、相談の最初に貼ってください。\n\n【回答の形式】\n・【結論】【懸念】【根拠】【行動】【要確認】の順に、各項目2〜3行で短く答えてください。\n・【結論】は最初の1〜2行、【懸念】は1〜3点、【行動】は「誰が・いつ・何を」で示してください。\n・与えた前提で判断できる場合は、対応方針まで示してください。材料が足りない場合は、【結論】を「現時点では判断保留」とし、不足情報と次の確認を【要確認】に示してください。\n\n【判断のルール】\n・安全と法令は必ず守る前提です。「①大切にすること」「②利益の基準」「③やらない仕事」「④最終判断する人」「⑤まだ分からないこと」に照らし、どの項目を根拠にしたか示してください。\n・営業利益と手元資金への影響を確認し、実績の数字と承認に使う基準を区別してください。全社の利益と工事別の粗利を混同しないでください。\n・数値は単位・対象範囲・期間・計算式を示してください。未確認の数字、担当者、期限、契約条件を作らず、「要確認」としてください。\n・契約・法令の論点は整理にとどめ、弁護士など専門家が最終確認する旨を添えてください。\n\n【事実と設定の扱い】\n・確認済みの事実、架空の設定、仮説、未確認事項を分けてください。架空の設定は、その事例の検討にだけ使ってください。\n・確認済みの事項を理由なく未確認へ戻さず、矛盾がある場合は具体的に指摘してください。前提が変われば結論も見直してください。\n・私の希望に合わせず、矛盾や弱点とその根拠を示してください。\n\n【対応方針と最終判断】\n・施主対応では、記録・実際の施工・説明・契約面を確認してください。確認前に無償対応や責任を約束せず、確認後は根拠に沿った対応方針を示してください。法的責任がないとは断定しないでください。\n・AIは結論を保証しません。最終判断は人が行います。講師の結論は、示した架空設定に基づく判断例です。\n・個人情報や機密情報が含まれていたら、伏せて入力し直すよう伝えてください。\n\n【判断シート（架空の工務店）】\n①大切にすること：施主・協力業者からの信用、継続的な利益、品質。\n②利益の基準：承認に使う粗利率・手元資金の基準値は未設定。事例の実績と区別する。実績の数字を、そのまま承認基準にしない。\n③やらない仕事：口約束だけの追加工事、承認なしの赤字工事。\n④最終判断する人：社長。金額別の承認範囲は未確認。\n⑤まだ分からないこと：事例で示していない条件は要確認。\n\n【事例（架空）：ワーク③ 浴室・洗面の改修工事】\n架空の事例です。見積金額（売価）は400万円。下表は原価です。現場管理・諸経費を既に含むため、同じ費用を再度引かないでください。\n\n【見積原価と実績原価の比較表】単位：万円\n項目｜見積原価｜実績原価\n解体・処分｜25｜32\n大工工事｜80｜96\n設備機器｜110｜110\nタイル・内装｜55｜58\n電気・給排水｜40｜52\n現場管理・諸経費｜10｜17\n合計｜320｜365\n\n左の数値は見積時の原価、右の数値は工事後の実績原価です。\n売価400万円は原価と別の数字です。売価が変わらない前提で比較します。\n大工工事の増加には口頭で頼まれた追加の棚が含まれますが、見積には戻していません。棚だけの金額は未確認です。\n\n【お願い】\n質問は次のメッセージで送ります。今は「受領しました」とだけ返してください。\n", "question": "利益が減った原因と、次の対策は？", "caseOnly": null}]};
+const META = {
+  1: { tag: 'ワーク①・スライド12〜15', title: '大工手間賃の20%値上げ', note: '事例：年間の大工手間賃3,000万円、営業利益500万円。年間手間賃の全額が1年間20%上がる要求です。' },
+  2: { tag: 'ワーク②・スライド17〜22', title: '外壁の色のクレーム', note: '事例：新築の引渡し2週間後、施主から「外壁の色が見本と違う。塗り直してほしい」と連絡がありました。' },
+  3: { tag: 'ワーク③・スライド23〜25', title: '浴室・洗面の見積と原価', note: '事例：売価400万円の改修工事。原価は見積320万円、実績365万円でした。' }
+};
+const ICON_COPY = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></svg>';
+const ICON_OK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+
+function esc(s){ return s.replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+
+function legacyCopy(text){
+  const t = document.createElement('textarea');
+  t.value = text; t.setAttribute('readonly', '');
+  t.style.cssText = 'position:fixed;top:0;left:0;width:1px;height:1px;opacity:0';
+  document.body.appendChild(t);
+  t.focus(); t.select(); t.setSelectionRange(0, text.length);
+  let ok = false;
+  try { ok = document.execCommand('copy'); } catch (e) {}
+  t.remove();
+  return ok;
+}
+
+async function doCopy(text){
+  try { await navigator.clipboard.writeText(text); return true; } catch (e) {}
+  return legacyCopy(text);
+}
+
+function wire(btn, getText, label, msgEl, fallbackFor){
+  const original = btn.innerHTML;
+  btn.addEventListener('click', async () => {
+    const ok = await doCopy(getText());
+    if (ok) {
+      btn.dataset.done = '1';
+      btn.innerHTML = ICON_OK + '<span>コピーしました</span>';
+      msgEl.className = 'msg';
+      msgEl.textContent = label + 'をコピーしました。AIアプリに切り替えて、貼り付けてください。';
+      setTimeout(() => { btn.dataset.done = ''; btn.innerHTML = original; }, 3000);
+    } else {
+      msgEl.className = 'msg warn';
+      msgEl.textContent = 'コピーできませんでした。下の「内容を確認する」を開き、文章を長押しして「すべて選択→コピー」してください。';
+      if (fallbackFor) { fallbackFor.open = true; const ta = fallbackFor.querySelector('textarea'); if (ta) { ta.focus(); ta.select(); } }
+    }
+  });
+}
+
+const root = document.getElementById('works');
+DATA.works.forEach(w => {
+  const m = META[w.n];
+  const num = '①②③'[w.n - 1];
+  const sec = document.createElement('section');
+  sec.className = 'work';
+  sec.setAttribute('aria-labelledby', 'w' + w.n);
+  sec.innerHTML = `
+    <div class="work-head">
+      <p class="work-tag">${esc(m.tag)}</p>
+      <h2 id="w${w.n}">${esc(m.title)}</h2>
+      <p class="case">${esc(m.note)}</p>
+    </div>
+    <div class="step">
+      <p class="step-label">手順1　貼り付け文（約${Math.round(w.bundle.length / 100) * 100}字）</p>
+      <button class="btn" type="button" id="b${w.n}">${ICON_COPY}<span>ワーク${num}の貼り付け文をコピー</span></button>
+    </div>
+    <div class="step">
+      <p class="step-label">手順2　「受領しました」の返信のあと、質問を送る</p>
+      <p class="qtext">${esc(w.question)}</p>
+      <button class="btn alt" type="button" id="q${w.n}">${ICON_COPY}<span>質問をコピー</span></button>
+    </div>
+    ${w.caseOnly ? `<div class="step"><p class="step-label">聞き比べ用（デモ①）</p><button class="btn alt small" type="button" id="c${w.n}">${ICON_COPY}<span>判断シートなしで試す：事例だけをコピー</span></button></div>` : ''}
+    <p class="msg" id="m${w.n}" role="status" aria-live="polite"></p>
+    <details id="d${w.n}">
+      <summary>貼り付ける内容を確認する</summary>
+      <textarea id="t${w.n}" readonly aria-label="ワーク${num}の貼り付け文">${esc(w.bundle)}</textarea>
+    </details>`;
+  root.appendChild(sec);
+  const msg = sec.querySelector('#m' + w.n);
+  const det = sec.querySelector('#d' + w.n);
+  wire(sec.querySelector('#b' + w.n), () => w.bundle, '貼り付け文', msg, det);
+  wire(sec.querySelector('#q' + w.n), () => w.question, '質問', msg, null);
+  const c = sec.querySelector('#c' + w.n);
+  if (c) wire(c, () => w.caseOnly, '事例だけの文', msg, null);
+});
+</script>
+
+</html>
